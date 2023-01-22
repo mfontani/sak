@@ -1,0 +1,108 @@
+---
+name: Release
+"on":
+  push:
+    tags:
+      - '*'
+
+jobs:
+
+  build:
+    runs-on: ubuntu-20.04
+    container: mfontani/gobuzz
+    steps:
+      - uses: actions/checkout@v3
+      - run: go mod download
+      # Sanity...
+      # - run: go test ./...
+      #   env:
+      #     TZ: UTC
+      # Build #1: linux/amd64
+      - run: ./.dev/build-static.sh
+        env:
+          GOOS: linux
+          GOARCH: amd64
+      - run: ./sak -help
+      - run: gzip --stdout sak > sak-linux-amd64.gz
+      # Build #2: windows/amd64
+      - run: ./.dev/build-static.sh
+        env:
+          GOOS: windows
+          GOARCH: amd64
+      - run: mv sak sak.exe
+      # Build #3: darwin/amd64
+      - run: ./.dev/build-static.sh
+        env:
+          GOOS: darwin
+          GOARCH: amd64
+      - run: gzip --stdout sak > sak-darwin-amd64.gz
+      # Upload artifacts...
+      - uses: actions/upload-artifact@master
+        with:
+          name: sak-linux-amd64.gz
+          path: sak-linux-amd64.gz
+      - uses: actions/upload-artifact@master
+        with:
+          name: sak.exe
+          path: sak.exe
+      - uses: actions/upload-artifact@master
+        with:
+          name: sak-darwin-amd64.gz
+          path: sak-darwin-amd64.gz
+
+  release:
+    needs: [build]
+    runs-on: ubuntu-20.04
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url}}
+    steps:
+      - id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+
+  uploadgz:
+    needs: [release]
+    strategy:
+      matrix:
+        file:
+          - sak-linux-amd64.gz
+          - sak-darwin-amd64.gz
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: ${{ matrix.file }}
+          path: .
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./${{ matrix.file }}
+          asset_name: ${{ matrix.file }}
+          asset_content_type: application/gzip
+
+  uploadexe:
+    needs: [release]
+    strategy:
+      matrix:
+        file:
+          - sak.exe
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: ${{ matrix.file }}
+          path: .
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./${{ matrix.file }}
+          asset_name: ${{ matrix.file }}
+          asset_content_type: application/vnd.microsoft.portable-executable

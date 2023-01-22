@@ -1,0 +1,80 @@
+#!/usr/bin/env perl
+use 5.020_000;
+use warnings;
+use Path::Tiny qw<path>;
+
+my $rx_subcommand = qr!
+    ^ \t "(?<subcommand> [^"]+ )": \s subcommand \{
+        (?<function_name> \S+) , \s
+        "(?<short_description> [^"]+ )", \s
+        "(?<synopsis> [^"]+ )", \n
+        ^ \t+ [`] (?<full_description> [^`]+ ) [`] \}, \n
+!xms;
+my $rx_dispatch = qr!
+    ^ var \s dispatch \s = \s map \[ string \] subcommand \{     \n
+        (?<subcommand_declarations>
+            (?: $rx_subcommand )+
+        )
+    ^ \} \n
+!xms;
+
+my %subcommands;
+
+my $main = path('main.go')->slurp_utf8;
+if ($main =~ $rx_dispatch) {
+    my $subcommand_declarations = $+{subcommand_declarations};
+    while ($subcommand_declarations =~ m!$rx_subcommand!xmsg) {
+        $subcommands{ $+{subcommand} } = {
+            map { $_ => $+{$_} } qw<
+                subcommand
+                function_name
+                short_description
+                synopsis
+                full_description
+            >,
+        };
+    }
+}
+else {
+    die "Could not grab `var dispatch = ...` declaration from main.go!\n";
+}
+
+my @readme = path('README.md')->lines_utf8();
+my @new_readme;
+my $in_subcommands = 0;
+for my $line (@readme) {
+    if (!$in_subcommands) {
+        push @new_readme, $line;
+    }
+    if ($line =~ m!\A[#][#] \s Subcommands!xms) {
+        $in_subcommands = 1;
+        push @new_readme, subcommands_to_readme();
+    }
+    if ($in_subcommands) {
+        if ($line =~ m!\A[#][#] \s LICENSE!xms) {
+            push @new_readme, $line;
+            $in_subcommands = 0;
+            next;
+        }
+    }
+}
+path('README.md')->spew_utf8(@new_readme);
+
+sub subcommands_to_readme {
+    my @lines;
+    for my $subcommand (sort keys %subcommands) {
+        push @lines, '';
+        push @lines, sprintf '### `%s` - %s',
+            $subcommand, $subcommands{$subcommand}{short_description};
+        push @lines, '';
+        push @lines, sprintf 'Synopsis: `%s`',
+            $subcommands{$subcommand}{synopsis};
+        push @lines, '';
+        push @lines, $subcommands{$subcommand}{full_description};
+    }
+    push @lines, '';
+    for (@lines) {
+        $_ .= "\n";
+    }
+    return @lines;
+}
