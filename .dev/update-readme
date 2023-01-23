@@ -1,7 +1,8 @@
 #!/usr/bin/env perl
 use 5.020_000;
 use warnings;
-use Path::Tiny qw<path>;
+use open ':encoding(UTF-8)';
+use autodie;
 
 my $rx_subcommand = qr!
     ^ \t "(?<subcommand> [^"]+ )": \s subcommand \{
@@ -20,7 +21,11 @@ my $rx_dispatch = qr!
 
 my %subcommands;
 
-my $main = path('main.go')->slurp_utf8;
+my $main = do {
+    local $/ = undef;
+    open my $fh, '<', 'main.go';
+    <$fh>;
+};
 if ($main =~ $rx_dispatch) {
     my $subcommand_declarations = $+{subcommand_declarations};
     while ($subcommand_declarations =~ m!$rx_subcommand!xmsg) {
@@ -39,7 +44,13 @@ else {
     die "Could not grab `var dispatch = ...` declaration from main.go!\n";
 }
 
-my @readme = path('README.md')->lines_utf8();
+my @readme;
+{
+    open my $fh, '<', 'README.md';
+    while (my $line = <$fh>) {
+        push @readme, $line;
+    }
+}
 my @new_readme;
 my $in_subcommands = 0;
 for my $line (@readme) {
@@ -58,7 +69,13 @@ for my $line (@readme) {
         }
     }
 }
-path('README.md')->spew_utf8(@new_readme);
+{
+    open my $fh, '>', 'README.md';
+    print $fh $_
+        for @new_readme;
+    close $fh;
+}
+exit 0;
 
 sub subcommands_to_readme {
     my @lines;
