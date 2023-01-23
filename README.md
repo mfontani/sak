@@ -24,6 +24,20 @@ Tools might get added over time as I get around to it.  Starting small for the
 moment, slowly adding ones I had lying around on a webapp somewhere so I can
 have them _also_ available at the command line on most systems I have/use.
 
+## How to install
+
+You can download a pre-packaged binary from the
+[releases page](https://github.com/mfontani/sak/releases),
+or use a tool such as [ubi](https://github.com/houseabsolute/ubi) to fetch it
+and install it to your local `$HOME/bin` (assuming it's in your `$PATH`, it'll
+Just Work®).
+
+```bash
+$ ubi --project mfontani/sak --in "$HOME/bin"
+$ sak --version
+sak version v0.0.3
+```
+
 ## Subcommands
 
 ### `csv2md` - Converts a CSV to MarkDown
