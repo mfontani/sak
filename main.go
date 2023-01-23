@@ -22,8 +22,18 @@ var dispatch = map[string]subcommand{
 and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
 OUTPUT_FILE to mean STDIN and STDOUT, respectively.
 Accepts no options other than --help.`},
+	"csv2md": subcommand{CSVToMD, "Converts a CSV to MarkDown", "csv2md [INPUT_FILE|-] [OUTPUT_FILE|-]",
+		`Converts a CSV file into a MarkDown file. Defaults to getting input from STDIN
+and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
+OUTPUT_FILE to mean STDIN and STDOUT, respectively.
+Accepts no options other than --help.`},
 	"tsv2csv": subcommand{TSVToCSV, "Converts a TSV into a CSV", "tsv2csv [INPUT_FILE|-] [OUTPUT_FILE|-]",
 		`Converts a TSV file into a CSV file. Defaults to getting input from STDIN
+and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
+OUTPUT_FILE to mean STDIN and STDOUT, respectively.
+Accepts no options other than --help.`},
+	"tsv2md": subcommand{TSVToMD, "Converts a TSV to MarkDown", "tsv2md [INPUT_FILE|-] [OUTPUT_FILE|-]",
+		`Converts a TSV file into a MarkDown file. Defaults to getting input from STDIN
 and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
 OUTPUT_FILE to mean STDIN and STDOUT, respectively.
 Accepts no options other than --help.`},
