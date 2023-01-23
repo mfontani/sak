@@ -62,6 +62,17 @@ and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
 OUTPUT_FILE to mean STDIN and STDOUT, respectively.
 Accepts no options other than --help.
 
+### `xsv2md` - Converts a xSV to MarkDown
+
+Synopsis: `xsv2md SEPARATOR [INPUT_FILE|-] [OUTPUT_FILE|-]`
+
+Converts a xSV file into a MarkDown file. Requires a SEPARATOR to be given.
+The SEPARATOR should be one-character, like $'\t' or ','.
+Defaults to getting input from STDIN and giving output to STDOUT.
+You can specify "-" for either INPUT_FILE or OUTPUT_FILE to mean STDIN and STDOUT,
+respectively.
+Accepts no options other than --help.
+
 ## LICENSE
 
 Copyright 2023 Marco Fontani <MFONTANI@cpan.org>
