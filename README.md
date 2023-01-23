@@ -26,6 +26,15 @@ have them _also_ available at the command line on most systems I have/use.
 
 ## Subcommands
 
+### `csv2md` - Converts a CSV to MarkDown
+
+Synopsis: `csv2md [INPUT_FILE|-] [OUTPUT_FILE|-]`
+
+Converts a CSV file into a MarkDown file. Defaults to getting input from STDIN
+and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
+OUTPUT_FILE to mean STDIN and STDOUT, respectively.
+Accepts no options other than --help.
+
 ### `csv2tsv` - Converts a CSV into a TSV
 
 Synopsis: `csv2tsv [INPUT_FILE|-] [OUTPUT_FILE|-]`
@@ -40,6 +49,15 @@ Accepts no options other than --help.
 Synopsis: `tsv2csv [INPUT_FILE|-] [OUTPUT_FILE|-]`
 
 Converts a TSV file into a CSV file. Defaults to getting input from STDIN
+and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
+OUTPUT_FILE to mean STDIN and STDOUT, respectively.
+Accepts no options other than --help.
+
+### `tsv2md` - Converts a TSV to MarkDown
+
+Synopsis: `tsv2md [INPUT_FILE|-] [OUTPUT_FILE|-]`
+
+Converts a TSV file into a MarkDown file. Defaults to getting input from STDIN
 and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
 OUTPUT_FILE to mean STDIN and STDOUT, respectively.
 Accepts no options other than --help.
