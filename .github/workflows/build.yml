@@ -20,8 +20,22 @@ jobs:
       #   env:
       #     TZ: UTC
 
+  integrated:
+    runs-on: ubuntu-20.04
+    container: mfontani/gobuzz
+    steps:
+      - uses: actions/checkout@v3
+      - run: ./.dev/update-readme
+        name: update README.md based on available dispatched functions
+      - run: "git config --global --add safe.directory $(pwd)"
+        name: mark current directory as safe
+      - run: git diff-index --name-status HEAD
+        name: ensure dispatched functions are integrated in README.md
+      - run: git diff-index --quiet HEAD
+        name: die if dispatched functions are not integrated in README.md
+
   build:
-    needs: [test]
+    needs: [test, integrated]
     runs-on: ubuntu-20.04
     container: mfontani/gobuzz
     steps:
