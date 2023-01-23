@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 )
 
 // Version contains the binary version. This is added at build time.
@@ -49,15 +50,22 @@ func Help() {
 	ShowVersion()
 	fmt.Println("Commands available:")
 	// DWIM format string width to neatly show all commands
+	// ... and show them sorted.
+	keys := make([]string, 0, len(dispatch))
 	l := 0
 	for k := range dispatch {
 		if len(k) > l {
 			l = len(k)
 		}
+		keys = append(keys, k)
 	}
+	sort.Strings(keys)
 	lineFmt := fmt.Sprintf("  %%-%ds - %%s\n", l)
-	for k := range dispatch {
-		fmt.Printf(lineFmt, k, dispatch[k].ShortDescription)
+	for _, k := range keys {
+		v, ok := dispatch[k]
+		if ok {
+			fmt.Printf(lineFmt, k, v.ShortDescription)
+		}
 	}
 	os.Exit(0)
 }

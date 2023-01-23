@@ -32,6 +32,8 @@ jobs:
         name: mark current directory as safe
       - run: git diff-index --name-status HEAD
         name: ensure dispatched functions are integrated in README.md
+      - run: git diff README.md
+        name: show any differences with README.md
       - run: git diff-index --quiet HEAD
         name: die if dispatched functions are not integrated in README.md
 
