@@ -38,6 +38,13 @@ Accepts no options other than --help.`},
 and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
 OUTPUT_FILE to mean STDIN and STDOUT, respectively.
 Accepts no options other than --help.`},
+	"xsv2md": subcommand{XSVToMD, "Converts a xSV to MarkDown", "xsv2md SEPARATOR [INPUT_FILE|-] [OUTPUT_FILE|-]",
+		`Converts a xSV file into a MarkDown file. Requires a SEPARATOR to be given.
+The SEPARATOR should be one-character, like $'\t' or ','.
+Defaults to getting input from STDIN and giving output to STDOUT.
+You can specify "-" for either INPUT_FILE or OUTPUT_FILE to mean STDIN and STDOUT,
+respectively.
+Accepts no options other than --help.`},
 }
 
 // ShowVersion shows the version of this tool.
