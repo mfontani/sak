@@ -40,6 +40,15 @@ sak version v0.0.3
 
 ## Subcommands
 
+### `args` - Shows arguments given
+
+Synopsis: `args [ARGUMENTS]`
+
+Prints the number of arguments on STDERR, followed by a possibly colored "dump"
+of each given argument on STDOUT. It highlights escape, backslash, space, tab,
+newline and return carriage.
+Accepts no options other than --help.
+
 ### `csv2md` - Converts a CSV to MarkDown
 
 Synopsis: `csv2md [INPUT_FILE|-] [OUTPUT_FILE|-]`
