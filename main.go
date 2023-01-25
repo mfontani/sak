@@ -101,7 +101,7 @@ func main() {
 			ShowVersion()
 			os.Exit(0)
 		}
-		if which != "--help" && which != "-help" {
+		if which != "sak" && which != "--help" && which != "-help" {
 			fmt.Printf("No such command '%s'.\n", which)
 		}
 		Help()
