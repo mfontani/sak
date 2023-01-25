@@ -47,6 +47,10 @@ Synopsis: `args [ARGUMENTS]`
 Prints the number of arguments on STDERR, followed by a possibly colored "dump"
 of each given argument on STDOUT. It highlights escape, backslash, space, tab,
 newline and return carriage.
+If an argument contains non-basic runes (outside of 0x20-0x7e, 0x09, 0x0a, 0x0d
+and 0x1b, which are highlighted), it spits out one line per rune that comprises
+the full string argument, and "describes" them, showing its decimal and hex
+values, its name, and its properties.
 Accepts no options other than --help.
 
 ### `csv2md` - Converts a CSV to MarkDown
