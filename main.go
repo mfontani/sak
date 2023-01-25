@@ -45,6 +45,11 @@ Defaults to getting input from STDIN and giving output to STDOUT.
 You can specify "-" for either INPUT_FILE or OUTPUT_FILE to mean STDIN and STDOUT,
 respectively.
 Accepts no options other than --help.`},
+	"args": subcommand{ShowArgs, "Shows arguments given", "args [ARGUMENTS]",
+		`Prints the number of arguments on STDERR, followed by a possibly colored "dump"
+of each given argument on STDOUT. It highlights escape, backslash, space, tab,
+newline and return carriage.
+Accepts no options other than --help.`},
 }
 
 // ShowVersion shows the version of this tool.
