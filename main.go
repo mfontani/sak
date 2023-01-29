@@ -54,6 +54,22 @@ and 0x1b, which are highlighted), it spits out one line per rune that comprises
 the full string argument, and "describes" them, showing its decimal and hex
 values, its name, and its properties.
 Accepts no options other than --help.`},
+	"rune": subcommand{Rune, "Shows runes matching the arguments", "rune [OPTIONS] ARGUMENT [ARGUMENT+]",
+		`Prints/describes the Unicode runes matching ARGUMENT. Optionally shows them.
+Uses the "fixed" rune descriptions for control characters, and support font
+awesome runes as well.
+ARGUMENT can be one of:
+- a string, or a string starting with "+", is used to restrict runes to the ones
+  which contain ARGUMENT in their description, case insensitively
+- a string starting with "-", excludes runes whose description matches, case
+  insensitively, ARGUMENT
+- a string starting with "/" or with "+/", the ARGUMENT is taken as a case
+  insensitive regular expression and runes are output if they match it
+- a string starting with "-/", the ARGUMENT is taken as a case insensitive
+  regular expression, and runes are excluded if they match it
+Options:
+    --help    Shows this help page
+    --show    Shows the rune character as well as its description`},
 }
 
 // ShowVersion shows the version of this tool.

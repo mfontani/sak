@@ -71,6 +71,26 @@ and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
 OUTPUT_FILE to mean STDIN and STDOUT, respectively.
 Accepts no options other than --help.
 
+### `rune` - Shows runes matching the arguments
+
+Synopsis: `rune [OPTIONS] ARGUMENT [ARGUMENT+]`
+
+Prints/describes the Unicode runes matching ARGUMENT. Optionally shows them.
+Uses the "fixed" rune descriptions for control characters, and support font
+awesome runes as well.
+ARGUMENT can be one of:
+- a string, or a string starting with "+", is used to restrict runes to the ones
+  which contain ARGUMENT in their description, case insensitively
+- a string starting with "-", excludes runes whose description matches, case
+  insensitively, ARGUMENT
+- a string starting with "/" or with "+/", the ARGUMENT is taken as a case
+  insensitive regular expression and runes are output if they match it
+- a string starting with "-/", the ARGUMENT is taken as a case insensitive
+  regular expression, and runes are excluded if they match it
+Options:
+    --help    Shows this help page
+    --show    Shows the rune character as well as its description
+
 ### `tsv2csv` - Converts a TSV into a CSV
 
 Synopsis: `tsv2csv [INPUT_FILE|-] [OUTPUT_FILE|-]`
