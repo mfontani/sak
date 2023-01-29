@@ -195,7 +195,7 @@ func Rune(args []string) {
 			}
 		}
 		if showRune {
-			fmt.Printf("%s%s\n", string(r), describeRune(r))
+			fmt.Printf("%s - %s\n", string(r), describeRune(r))
 		} else {
 			fmt.Println(describeRune(r))
 		}

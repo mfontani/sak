@@ -149,7 +149,7 @@ func argQuoteAndExplode(arg string, wantsColors bool) string {
 	lines := make([]string, 0)
 	lines = append(lines, string(newRunes))
 	for _, r := range argRunes {
-		lines = append(lines, describeRune(r))
+		lines = append(lines, fmt.Sprintf("  - %s", describeRune(r)))
 	}
 	return strings.Join(lines, "\n")
 }
@@ -213,7 +213,7 @@ func describeRune(r rune) string {
 		flags = append(flags, "upper")
 	}
 	// decimal, hex, name, flags
-	return fmt.Sprintf("  - %-4s 0x%04x %s (%s)", fmt.Sprintf("%d", r), r, name, strings.Join(flags, ", "))
+	return fmt.Sprintf("%-4s 0x%04x %s (%s)", fmt.Sprintf("%d", r), r, name, strings.Join(flags, ", "))
 }
 
 // ShowArgs is the command that shows all arguments given to the program
