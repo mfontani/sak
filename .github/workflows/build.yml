@@ -36,6 +36,24 @@ jobs:
         name: show any differences with README.md
       - run: git diff-index --quiet HEAD
         name: die if dispatched functions are not integrated in README.md
+      - run: apk add --no-cache perl-mojolicious perl-io-socket-ssl
+        name: add perl-mojolicious and perl-io-socket-ssl to update fa/nf
+      - run: ./fa.pl
+        name: update "fa.go" from "fa.pl"
+      - run: git diff-index --name-status HEAD
+        name: ensure fa.pl results in no changes from fa.go
+      - run: git diff fa.go
+        name: show any differences in fa.go
+      - run: git diff-index --quiet HEAD
+        name: die if fa.go is updated by fa.pl script
+      - run: ./nf.pl
+        name: update "nf.go" from "nf.pl"
+      - run: git diff-index --name-status HEAD
+        name: ensure nf.pl results in no changes from nf.go
+      - run: git diff nf.go
+        name: show any differences in nf.go
+      - run: git diff-index --quiet HEAD
+        name: die if nf.go is updated by nf.pl script
 
   build:
     needs: [test, integrated]
@@ -47,3 +65,4 @@ jobs:
       - run: ./.dev/build-static.sh
       # Ensure it runs...
       - run: ./sak -help
+      - run: ./sak rune --show camel -bactrian
