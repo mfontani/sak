@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"golang.org/x/text/unicode/rangetable"
@@ -80,6 +81,9 @@ var fixedRuneNames = map[rune]string{
 	159: "APPLICATION PROGRAM COMMAND",
 }
 
+var rxDecimalNumber = regexp.MustCompile(`\A[1-9][0-9]*\z`)
+var rxHexadecimalNumber = regexp.MustCompile(`\A[1-9a-fA-F][0-9a-fA-F]*\z`)
+
 // Rune shows runes matching the arguments
 func Rune(args []string) {
 	showRune := false
@@ -96,6 +100,42 @@ func Rune(args []string) {
 	if len(args) == 0 {
 		fmt.Fprintf(os.Stderr, "Need something to search for.\n")
 		os.Exit(1)
+	}
+	if len(args) == 1 {
+		if rxDecimalNumber.MatchString(args[0]) {
+			i, err := strconv.ParseInt(args[0], 10, 0)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Cannot conver decimal string to int for %s: %s\n", args[0], err)
+				os.Exit(1)
+			}
+			if showRune {
+				fmt.Printf("%s - %s\n", string(rune(i)), describeRune(rune(i)))
+			} else {
+				fmt.Println(describeRune(rune(i)))
+			}
+			os.Exit(0)
+		}
+		if strings.HasPrefix(args[0], "0x") || strings.HasPrefix(args[0], "0X") {
+			arg := args[0]
+			if strings.HasPrefix(arg, "0x") {
+				arg = strings.TrimPrefix(arg, "0x")
+			} else if strings.HasPrefix(arg, "0X") {
+				arg = strings.TrimPrefix(arg, "0X")
+			}
+			if rxHexadecimalNumber.MatchString(arg) {
+				i, err := strconv.ParseInt(arg, 16, 0)
+				if err != nil {
+					fmt.Fprintf(os.Stderr, "Cannot convert hexadecimal string to int for %s: %s\n", args[0], err)
+					os.Exit(1)
+				}
+				if showRune {
+					fmt.Printf("%s - %s\n", string(rune(i)), describeRune(rune(i)))
+				} else {
+					fmt.Println(describeRune(rune(i)))
+				}
+				os.Exit(0)
+			}
+		}
 	}
 	for _, arg := range args {
 		if strings.HasPrefix(arg, "+/") || strings.HasPrefix(arg, "/") {

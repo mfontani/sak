@@ -87,6 +87,11 @@ ARGUMENT can be one of:
   insensitive regular expression and runes are output if they match it
 - a string starting with "-/", the ARGUMENT is taken as a case insensitive
   regular expression, and runes are excluded if they match it
+- If only one ARGUMENT is given, and it matches a decimal number, then it
+  displays information about the rune identified by that decimal number.
+- If only one ARGUMENT is given, and it matches a hexadecimal number (starting
+  with the string "0x"), then it displays information about the rune identified
+  by that hexadecimal number.
 Options:
     --help    Shows this help page
     --show    Shows the rune character as well as its description
