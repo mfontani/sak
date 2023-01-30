@@ -96,6 +96,16 @@ Options:
     --help    Shows this help page
     --show    Shows the rune character as well as its description
 
+### `stripansi` - strips ansi from input
+
+Synopsis: `stripansi [INPUT_FILE|-] [OUTPUT_FILE|-]`
+
+Strips ANSI strings (i.e. \x1b[...m) from INPUT_FILE, and writes to OUTPUT_FILE.
+Defaults to getting input from STDIN and giving output to STDOUT.
+You can specify "-" for either INPUT_FILE or OUTPUT_FILE to mean STDIN and STDOUT,
+respectively.
+Accepts no options other than --help.
+
 ### `tsv2csv` - Converts a TSV into a CSV
 
 Synopsis: `tsv2csv [INPUT_FILE|-] [OUTPUT_FILE|-]`
