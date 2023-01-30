@@ -75,6 +75,12 @@ ARGUMENT can be one of:
 Options:
     --help    Shows this help page
     --show    Shows the rune character as well as its description`},
+	"stripansi": subcommand{StripANSI, "strips ansi from input", "stripansi [INPUT_FILE|-] [OUTPUT_FILE|-]",
+		`Strips ANSI strings (i.e. \x1b[...m) from INPUT_FILE, and writes to OUTPUT_FILE.
+Defaults to getting input from STDIN and giving output to STDOUT.
+You can specify "-" for either INPUT_FILE or OUTPUT_FILE to mean STDIN and STDOUT,
+respectively.
+Accepts no options other than --help.`},
 }
 
 // ShowVersion shows the version of this tool.
