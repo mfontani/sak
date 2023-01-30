@@ -2,6 +2,9 @@ package main
 
 import (
 	"bufio"
+	"fmt"
+	"io"
+	"os"
 	"regexp"
 )
 
@@ -11,9 +14,16 @@ var rxANSI = regexp.MustCompile(`(\x1b\[[^m]*?m)`)
 func StripANSI(args []string) {
 	MaxArgs(2, args)
 	r, w := IOArgs(args)
-	s := bufio.NewScanner(r)
-	for s.Scan() {
-		l := s.Text()
+	s := bufio.NewReader(r)
+	for {
+		l, err := s.ReadString('\n')
+		if err != nil {
+			if err == io.EOF {
+				return
+			}
+			fmt.Fprintf(os.Stderr, "Failed to read: %s\n", err)
+			os.Exit(1)
+		}
 		f := rxANSI.ReplaceAllString(l, "")
 		w.Write([]byte(f))
 	}
