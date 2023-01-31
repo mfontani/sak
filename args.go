@@ -54,17 +54,15 @@ func IOArgs(args []string) (io.Reader, io.Writer) {
 }
 
 var replacementRunesColored = map[rune][]rune{
-	'\\':   []rune("\x1b[31m\\\\\x1b[0m"),
-	' ':    []rune("\x1b[30;46m\\ \x1b[0m"),
+	'\\':   []rune("\x1b[31m\\\x1b[0m"),
+	' ':    []rune("\x1b[30;46m \x1b[0m"),
 	'\t':   []rune("\x1b[30;44m\\t\x1b[0m"),
 	'\n':   []rune("\x1b[30;45m\\n\x1b[0m"),
 	'\r':   []rune("\x1b[30;45m\\r\x1b[0m"),
-	'\x1b': []rune("\x1b[32;42m\\e\x1b[0m"),
+	'\x1b': []rune("\x1b[31;40m\\e\x1b[0m"),
 }
 
 var replacementRunesPlain = map[rune][]rune{
-	'\\':   []rune("\\\\"),
-	' ':    []rune("\\ "),
 	'\t':   []rune("\\t"),
 	'\n':   []rune("\\n"),
 	'\r':   []rune("\\r"),
