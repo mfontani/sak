@@ -25,6 +25,10 @@ my $page = '';
 my $RX_BLOCK = qr{
     <div \s+ class="column">
         \s*
+        (?:
+            <span \s class="corner-red"></span><span \s class="corner-text">(?<obsolete>obsolete)</span>
+            \s*
+        )?
         <div \s+ class="[^"]+"></div>
         \s*
         <div \s+ class="class-name">(?<name>[^<]+)</div>
@@ -38,11 +42,12 @@ printf {$fh} "package main\n\n";
 printf {$fh} "var nfRunes = map[rune]string{\n";
 my %found;
 while ($page =~ m!$RX_BLOCK!xmsg) {
-    my ($hex, $name) = ($+{hex}, $+{name});
+    my ($hex, $name, $obsolete) = ($+{hex}, $+{name}, $+{obsolete});
+    $obsolete = defined $obsolete && length $obsolete ? " ($obsolete)" : '';
     $found{$hex}++ and next;
-    printf {$fh} sprintf qq!\t%-8s"%s",\n!,
+    printf {$fh} sprintf qq!\t%-8s"%s%s",\n!,
         (sprintf '%d:', hex("0x$hex")),
-        $name;
+        $name, $obsolete;
 }
 printf {$fh} "}\n";
 close $fh;

@@ -81,6 +81,11 @@ Defaults to getting input from STDIN and giving output to STDOUT.
 You can specify "-" for either INPUT_FILE or OUTPUT_FILE to mean STDIN and STDOUT,
 respectively.
 Accepts no options other than --help.`},
+	"since": subcommand{Since, "Shows days, months etc between dates", "since START_DATE [END_DATE|TODAY]",
+		`Prints the amount of days, weeks, months years between START_DATE and END_DATE.
+END_DATE defaults to today's date. Dates need to be given in YYYY-MM-DD format.
+DWIMs if END_DATE is <= START_DATE.
+Accepts no options other than --help.`},
 }
 
 // ShowVersion shows the version of this tool.

@@ -96,6 +96,15 @@ Options:
     --help    Shows this help page
     --show    Shows the rune character as well as its description
 
+### `since` - Shows days, months etc between dates
+
+Synopsis: `since START_DATE [END_DATE|TODAY]`
+
+Prints the amount of days, weeks, months years between START_DATE and END_DATE.
+END_DATE defaults to today's date. Dates need to be given in YYYY-MM-DD format.
+DWIMs if END_DATE is <= START_DATE.
+Accepts no options other than --help.
+
 ### `stripansi` - strips ansi from input
 
 Synopsis: `stripansi [INPUT_FILE|-] [OUTPUT_FILE|-]`
