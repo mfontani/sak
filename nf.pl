@@ -25,6 +25,10 @@ my $page = '';
 my $RX_BLOCK = qr{
     <div \s+ class="column">
         \s*
+        (?:
+            <span \s class="corner-red"></span><span \s class="corner-text">obsolete</span>
+            \s*
+        )?
         <div \s+ class="[^"]+"></div>
         \s*
         <div \s+ class="class-name">(?<name>[^<]+)</div>
