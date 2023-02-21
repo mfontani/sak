@@ -51,7 +51,7 @@ printf {$fh} "}\n\n";
 printf {$fh} "var faRunes = map[rune]faRune{\n";
 while ($page =~ m!$RX_BLOCK!xmsg) {
     my ($from_version, $hex, $name) = ($+{from_version}, $+{hex}, $+{name});
-    printf {$fh} sprintf qq!\t%-7sfaRune{"%s", "%s"},\n!,
+    printf {$fh} sprintf qq!\t%-7s{"%s", "%s"},\n!,
         (sprintf '%d:', hex $hex),
         $name,
         $from_version // '';

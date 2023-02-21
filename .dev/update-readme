@@ -5,7 +5,7 @@ use open ':encoding(UTF-8)';
 use autodie;
 
 my $rx_subcommand = qr!
-    ^ \t "(?<subcommand> [^"]+ )": \s subcommand \{
+    ^ \t "(?<subcommand> [^"]+ )": \s \{
         (?<function_name> \S+) , \s
         "(?<short_description> [^"]+ )", \s
         "(?<synopsis> [^"]+ )", \n

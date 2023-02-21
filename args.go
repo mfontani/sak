@@ -110,10 +110,7 @@ func isBasicRune(r rune) bool {
 		return true
 	}
 	_, ok := replacementRunesPlain[r]
-	if ok {
-		return true
-	}
-	return false
+	return ok
 }
 
 func argQuoteAndExplode(arg string, wantsColors bool) string {
@@ -127,9 +124,7 @@ func argQuoteAndExplode(arg string, wantsColors bool) string {
 	for _, argRune := range argRunes {
 		rs, ok := replacementRunes[argRune]
 		if ok {
-			for _, r := range rs {
-				newRunes = append(newRunes, r)
-			}
+			newRunes = append(newRunes, rs...)
 		} else {
 			if !isBasicRune(argRune) {
 				isAllBasic = false

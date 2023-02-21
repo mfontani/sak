@@ -119,6 +119,7 @@ func Rune(args []string) {
 			arg := args[0]
 			if strings.HasPrefix(arg, "0x") {
 				arg = strings.TrimPrefix(arg, "0x")
+				//lint:ignore S1017 we trim _one_ 0x or 0X whichever matches
 			} else if strings.HasPrefix(arg, "0X") {
 				arg = strings.TrimPrefix(arg, "0X")
 			}
@@ -145,9 +146,7 @@ func Rune(args []string) {
 			} else {
 				arg = strings.TrimPrefix(arg, "/")
 			}
-			if strings.HasSuffix(arg, "/") {
-				arg = strings.TrimSuffix(arg, "/")
-			}
+			arg = strings.TrimSuffix(arg, "/")
 			if len(arg) == 0 {
 				fmt.Fprintf(os.Stderr, "Too short regexp from %s\n", origArg)
 				os.Exit(1)
@@ -161,9 +160,7 @@ func Rune(args []string) {
 		} else if strings.HasPrefix(arg, "-/") {
 			origArg := arg
 			arg = strings.TrimPrefix(arg, "-/")
-			if strings.HasSuffix(arg, "/") {
-				arg = strings.TrimSuffix(arg, "/")
-			}
+			arg = strings.TrimSuffix(arg, "/")
 			if len(arg) == 0 {
 				fmt.Fprintf(os.Stderr, "Too short regexp from %s\n", origArg)
 				os.Exit(1)
@@ -184,9 +181,7 @@ func Rune(args []string) {
 			shouldntContain = append(shouldntContain, strings.ToLower(arg))
 		} else {
 			origArg := arg
-			if strings.HasPrefix(arg, "+") {
-				arg = strings.TrimPrefix(arg, "+")
-			}
+			arg = strings.TrimPrefix(arg, "+")
 			if len(arg) == 0 {
 				fmt.Fprintf(os.Stderr, "Too short argument from %s\n", origArg)
 				os.Exit(1)
