@@ -18,34 +18,34 @@ type subcommand struct {
 }
 
 var dispatch = map[string]subcommand{
-	"csv2tsv": subcommand{CSVToTSV, "Converts a CSV into a TSV", "csv2tsv [INPUT_FILE|-] [OUTPUT_FILE|-]",
+	"csv2tsv": {CSVToTSV, "Converts a CSV into a TSV", "csv2tsv [INPUT_FILE|-] [OUTPUT_FILE|-]",
 		`Converts a CSV file into a TSV file. Defaults to getting input from STDIN
 and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
 OUTPUT_FILE to mean STDIN and STDOUT, respectively.
 Accepts no options other than --help.`},
-	"csv2md": subcommand{CSVToMD, "Converts a CSV to MarkDown", "csv2md [INPUT_FILE|-] [OUTPUT_FILE|-]",
+	"csv2md": {CSVToMD, "Converts a CSV to MarkDown", "csv2md [INPUT_FILE|-] [OUTPUT_FILE|-]",
 		`Converts a CSV file into a MarkDown file. Defaults to getting input from STDIN
 and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
 OUTPUT_FILE to mean STDIN and STDOUT, respectively.
 Accepts no options other than --help.`},
-	"tsv2csv": subcommand{TSVToCSV, "Converts a TSV into a CSV", "tsv2csv [INPUT_FILE|-] [OUTPUT_FILE|-]",
+	"tsv2csv": {TSVToCSV, "Converts a TSV into a CSV", "tsv2csv [INPUT_FILE|-] [OUTPUT_FILE|-]",
 		`Converts a TSV file into a CSV file. Defaults to getting input from STDIN
 and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
 OUTPUT_FILE to mean STDIN and STDOUT, respectively.
 Accepts no options other than --help.`},
-	"tsv2md": subcommand{TSVToMD, "Converts a TSV to MarkDown", "tsv2md [INPUT_FILE|-] [OUTPUT_FILE|-]",
+	"tsv2md": {TSVToMD, "Converts a TSV to MarkDown", "tsv2md [INPUT_FILE|-] [OUTPUT_FILE|-]",
 		`Converts a TSV file into a MarkDown file. Defaults to getting input from STDIN
 and giving output to STDOUT. You can specify "-" for either INPUT_FILE or
 OUTPUT_FILE to mean STDIN and STDOUT, respectively.
 Accepts no options other than --help.`},
-	"xsv2md": subcommand{XSVToMD, "Converts a xSV to MarkDown", "xsv2md SEPARATOR [INPUT_FILE|-] [OUTPUT_FILE|-]",
+	"xsv2md": {XSVToMD, "Converts a xSV to MarkDown", "xsv2md SEPARATOR [INPUT_FILE|-] [OUTPUT_FILE|-]",
 		`Converts a xSV file into a MarkDown file. Requires a SEPARATOR to be given.
 The SEPARATOR should be one-character, like $'\t' or ','.
 Defaults to getting input from STDIN and giving output to STDOUT.
 You can specify "-" for either INPUT_FILE or OUTPUT_FILE to mean STDIN and STDOUT,
 respectively.
 Accepts no options other than --help.`},
-	"args": subcommand{ShowArgs, "Shows arguments given", "args [ARGUMENTS]",
+	"args": {ShowArgs, "Shows arguments given", "args [ARGUMENTS]",
 		`Prints the number of arguments on STDERR, followed by a possibly colored "dump"
 of each given argument on STDOUT. It highlights escape, backslash, space, tab,
 newline and return carriage.
@@ -54,7 +54,7 @@ and 0x1b, which are highlighted), it spits out one line per rune that comprises
 the full string argument, and "describes" them, showing its decimal and hex
 values, its name, and its properties.
 Accepts no options other than --help.`},
-	"rune": subcommand{Rune, "Shows runes matching the arguments", "rune [OPTIONS] ARGUMENT [ARGUMENT+]",
+	"rune": {Rune, "Shows runes matching the arguments", "rune [OPTIONS] ARGUMENT [ARGUMENT+]",
 		`Prints/describes the Unicode runes matching ARGUMENT. Optionally shows them.
 Uses the "fixed" rune descriptions for control characters, and support font
 awesome runes as well.
@@ -75,13 +75,13 @@ ARGUMENT can be one of:
 Options:
     --help    Shows this help page
     --show    Shows the rune character as well as its description`},
-	"stripansi": subcommand{StripANSI, "strips ansi from input", "stripansi [INPUT_FILE|-] [OUTPUT_FILE|-]",
+	"stripansi": {StripANSI, "strips ansi from input", "stripansi [INPUT_FILE|-] [OUTPUT_FILE|-]",
 		`Strips ANSI strings (i.e. \x1b[...m) from INPUT_FILE, and writes to OUTPUT_FILE.
 Defaults to getting input from STDIN and giving output to STDOUT.
 You can specify "-" for either INPUT_FILE or OUTPUT_FILE to mean STDIN and STDOUT,
 respectively.
 Accepts no options other than --help.`},
-	"since": subcommand{Since, "Shows days, months etc between dates", "since START_DATE [END_DATE|TODAY]",
+	"since": {Since, "Shows days, months etc between dates", "since START_DATE [END_DATE|TODAY]",
 		`Prints the amount of days, weeks, months years between START_DATE and END_DATE.
 END_DATE defaults to today's date. Dates need to be given in YYYY-MM-DD format.
 DWIMs if END_DATE is <= START_DATE.
