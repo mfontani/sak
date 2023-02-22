@@ -35,7 +35,7 @@ Just Work®).
 ```bash
 $ ubi --project mfontani/sak --in "$HOME/bin"
 $ sak --version
-sak version v0.0.3
+sak version v0.0.9
 ```
 
 ## Subcommands
