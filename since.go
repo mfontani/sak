@@ -15,14 +15,14 @@ func Since(args []string) {
 	}
 	startDate, err := time.Parse("2006-01-02", args[0])
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "arg %s does not look like YYYY-MM-DD or a valid date", args[0])
+		fmt.Fprintf(os.Stderr, "Argument %s does not look like YYYY-MM-DD or a valid date", args[0])
 		os.Exit(1)
 	}
 	endDate := time.Now()
 	if len(args) == 2 {
 		endDate, err = time.Parse("2006-01-02", args[1])
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "arg %s does not look like YYYY-MM-DD or a valid date", args[1])
+			fmt.Fprintf(os.Stderr, "Argument %s does not look like YYYY-MM-DD or a valid date", args[1])
 			os.Exit(1)
 		}
 	}
