@@ -1,0 +1,16 @@
+name: Rebase stale PRs
+on:
+  push:
+    branches: [master]
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: peter-evans/rebase@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          base: master
+          exclude-drafts: true
+          exclude-labels: |
+            no-rebase
