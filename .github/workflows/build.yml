@@ -66,3 +66,5 @@ jobs:
       # Ensure it runs...
       - run: ./sak -help
       - run: ./sak rune --show camel -bactrian
+      # These are different.. ;-)
+      - run: ./sak runes caña caña

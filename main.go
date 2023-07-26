@@ -75,6 +75,11 @@ ARGUMENT can be one of:
 Options:
     --help    Shows this help page
     --show    Shows the rune character as well as its description`},
+	"runes": {Runes, "Shows runes contained in the string arguments", "runes ARGUMENT [ARGUMENT+]",
+		`Prints/describes the Unicode runes contained in each ARGUMENT.
+Uses the "fixed" rune descriptions for control characters, and supports font
+awesome runes as well.  Useful to identify presence of combining characters.
+Accepts no options other than --help.`},
 	"stripansi": {StripANSI, "strips ansi from input", "stripansi [INPUT_FILE|-] [OUTPUT_FILE|-]",
 		`Strips ANSI strings (i.e. \x1b[...m) from INPUT_FILE, and writes to OUTPUT_FILE.
 Defaults to getting input from STDIN and giving output to STDOUT.
