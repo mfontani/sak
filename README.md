@@ -96,6 +96,15 @@ Options:
     --help    Shows this help page
     --show    Shows the rune character as well as its description
 
+### `runes` - Shows runes contained in the string arguments
+
+Synopsis: `runes ARGUMENT [ARGUMENT+]`
+
+Prints/describes the Unicode runes contained in each ARGUMENT.
+Uses the "fixed" rune descriptions for control characters, and supports font
+awesome runes as well.  Useful to identify presence of combining characters.
+Accepts no options other than --help.
+
 ### `since` - Shows days, months etc between dates
 
 Synopsis: `since START_DATE [END_DATE|TODAY]`
