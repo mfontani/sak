@@ -2,6 +2,7 @@
 use 5.020_000;
 use warnings;
 use Mojo::UserAgent qw<>;
+use Mojo::JSON qw<decode_json>;
 use autodie;
 
 my $page = '';
@@ -17,37 +18,33 @@ my $page = '';
         die "AIEE";
     }
 }
-# Example block:
-##  <div class="column">
-##    <div class="nf nf-cod-bug center"></div>
-##    <div class="class-name">nf-cod-bug</div><div class="codepoint">eaaf</div>
-##  </div>
-my $RX_BLOCK = qr{
-    <div \s+ class="column">
-        \s*
-        (?:
-            <span \s class="corner-red"></span><span \s class="corner-text">(?<obsolete>obsolete)</span>
-            \s*
-        )?
-        <div \s+ class="[^"]+"></div>
-        \s*
-        <div \s+ class="class-name">(?<name>[^<]+)</div>
-        \s*
-        <div \s+ title="[^"]+" \s+ class="codepoint">(?<hex>[1-9a-fA-F][0-9a-fA-F]*)</div>
-        \s*
-    </div>
-}xms;
+
+# Swapped to JSON at some point:
+# const glyphs = { ... }
+my $json = $page =~ m!<script>\s*const \s+ glyphs \s* = \s* ({.*?})\s*</script>!xms ? $1 : '';
+die "Can't match const glyphs"
+    if !length $json;
+
+# "name" => "f0f0f0",
+$json =~ s!,\s*}!}!xmsg;
+my $href = decode_json($json);
+
 open my $fh, '>', 'nf.go';
 printf {$fh} "package main\n\n";
 printf {$fh} "var nfRunes = map[rune]string{\n";
 my %found;
-while ($page =~ m!$RX_BLOCK!xmsg) {
-    my ($hex, $name, $obsolete) = ($+{hex}, $+{name}, $+{obsolete});
-    $obsolete = defined $obsolete && length $obsolete ? " ($obsolete)" : '';
+for my $name (sort keys %$href) {
+    my $hex = $href->{$name};
     $found{$hex}++ and next;
-    printf {$fh} sprintf qq!\t%-8s"%s%s",\n!,
-        (sprintf '%d:', hex("0x$hex")),
-        $name, $obsolete;
+    if ($name =~ m!\Anfold-!xms) {
+        printf {$fh} sprintf qq!\t%-8s"%s",\n!,
+            (sprintf '%d:', hex("0x$hex")),
+            ($name =~ s!\Anfold-!nf-!xmsr) . ' (obsolete)';
+    } else {
+        printf {$fh} sprintf qq!\t%-8s"%s",\n!,
+            (sprintf '%d:', hex("0x$hex")),
+            $name;
+    }
 }
 printf {$fh} "}\n";
 close $fh;
