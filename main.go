@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
 )
 
 // Version contains the binary version. This is added at build time.
@@ -46,17 +47,17 @@ You can specify "-" for either INPUT_FILE or OUTPUT_FILE to mean STDIN and STDOU
 respectively.
 Accepts no options other than --help.`},
 	"args": {ShowArgs, "Shows arguments given", "args [ARGUMENTS]",
-		`Prints the number of arguments on STDERR, followed by a possibly colored "dump"
+		`Prints the number of arguments on STDERR, followed by a possibly colored ""dump""
 of each given argument on STDOUT. It highlights escape, backslash, space, tab,
 newline and return carriage.
 If an argument contains non-basic runes (outside of 0x20-0x7e, 0x09, 0x0a, 0x0d
 and 0x1b, which are highlighted), it spits out one line per rune that comprises
-the full string argument, and "describes" them, showing its decimal and hex
+the full string argument, and ""describes"" them, showing its decimal and hex
 values, its name, and its properties.
 Accepts no options other than --help.`},
 	"rune": {Rune, "Shows runes matching the arguments", "rune [OPTIONS] ARGUMENT [ARGUMENT+]",
 		`Prints/describes the Unicode runes matching ARGUMENT. Optionally shows them.
-Uses the "fixed" rune descriptions for control characters, and support font
+Uses the ""fixed"" rune descriptions for control characters, and support font
 awesome runes as well.
 ARGUMENT can be one of:
 - a string, or a string starting with "+", is used to restrict runes to the ones
@@ -77,7 +78,7 @@ Options:
     --show    Shows the rune character as well as its description`},
 	"runes": {Runes, "Shows runes contained in the string arguments", "runes ARGUMENT [ARGUMENT+]",
 		`Prints/describes the Unicode runes contained in each ARGUMENT.
-Uses the "fixed" rune descriptions for control characters, and supports font
+Uses the ""fixed"" rune descriptions for control characters, and supports font
 awesome runes as well.  Useful to identify presence of combining characters.
 Accepts no options other than --help.`},
 	"stripansi": {StripANSI, "strips ansi from input", "stripansi [INPUT_FILE|-] [OUTPUT_FILE|-]",
@@ -151,7 +152,7 @@ func main() {
 		}
 		if arg == "--help" || arg == "-help" {
 			fmt.Printf("Synopsis: %s\n", sc.Synopsis)
-			fmt.Println(sc.FullDescription)
+			fmt.Println(strings.Replace(sc.FullDescription, "\"\"", "\"", -1))
 			os.Exit(0)
 		}
 	}

@@ -87,7 +87,22 @@ sub subcommands_to_readme {
         push @lines, sprintf 'Synopsis: `%s`',
             $subcommands{$subcommand}{synopsis};
         push @lines, '';
-        push @lines, $subcommands{$subcommand}{full_description};
+        my $desc = $subcommands{$subcommand}{full_description};
+        my @desc_lines = split /\n/xms, $desc;
+        for my $i (0..$#desc_lines) {
+            my $line = $desc_lines[$i];
+            $line =~ s!\bDWIMs\b!dwims!xmsg;            # DWIMs -> dwims
+            $line =~ s!([A-Z][A-Z_-]{2,})!`$1`!xmsg;    # OUTPUT_FILE -> `OUTPUT_FILE`
+            $line =~ s!([^"])"([^"]+)"!$1`$2`!xmsg;     # "-" -> `-`
+            $line =~ s!""([^"]+)""!"$1"!xmsg;           # ""describes""- -> "describes"
+            $line =~ s!(\s)(--[a-z]+)!$1`$2`!xmsg       # --output-file -> `--output-file`
+                if $line !~ m!\A\s{4}!xms;
+            $line =~ s!(\\x[^ \)]+)!`$1`!xmsg;          # \x00 -> `x00`
+            $line =~ s!\bdwims\b!DWIMs!xmsg;            # dwims -> DWIMs
+            $line =~ s!\b(0x[a-f0-9]{2})\b!`$1`!xmsg;   # 0x00 -> `0x00`
+            push @lines, $line =~ m!\A`?[A-Z]!xms && $i > 0 ? "\n$line" : $line;
+            push @lines, '' if $line eq 'Options:';
+        }
     }
     push @lines, '';
     for (@lines) {
