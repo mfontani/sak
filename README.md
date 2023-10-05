@@ -179,6 +179,30 @@ respectively.
 
 Accepts no options other than `--help`.
 
+### `yaml2json` - Converts YAML to JSON
+
+Synopsis: `yaml2json [INPUT_FILE|-] [OUTPUT_FILE|-]`
+
+Converts `YAML` to `JSON`.
+
+Defaults to getting input from `STDIN` and giving output to `STDOUT`. You can
+specify `-` for either `INPUT_FILE` or `OUTPUT_FILE` to mean `STDIN` and `STDOUT`,
+respectively.
+
+Accepts no options other than `--help`.
+
+### `yamlpretty` - Pretty-prints YAML
+
+Synopsis: `yamlpretty [INPUT_FILE|-] [OUTPUT_FILE|-]`
+
+Pretty-prints `YAML`.
+
+Defaults to getting input from `STDIN` and giving output to `STDOUT`. You can
+specify `-` for either `INPUT_FILE` or `OUTPUT_FILE` to mean `STDIN` and `STDOUT`,
+respectively.
+
+Accepts no options other than `--help`.
+
 ## LICENSE
 
 Copyright 2023 Marco Fontani <MFONTANI@cpan.org>

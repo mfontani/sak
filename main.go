@@ -92,6 +92,18 @@ Accepts no options other than --help.`},
 END_DATE defaults to today's date. Dates need to be given in YYYY-MM-DD format.
 DWIMs if END_DATE is <= START_DATE.
 Accepts no options other than --help.`},
+	"yamlpretty": {YAMLPretty, "Pretty-prints YAML", "yamlpretty [INPUT_FILE|-] [OUTPUT_FILE|-]",
+		`Pretty-prints YAML.
+Defaults to getting input from STDIN and giving output to STDOUT. You can
+specify "-" for either INPUT_FILE or OUTPUT_FILE to mean STDIN and STDOUT,
+respectively.
+Accepts no options other than --help.`},
+	"yaml2json": {YAMLToJSON, "Converts YAML to JSON", "yaml2json [INPUT_FILE|-] [OUTPUT_FILE|-]",
+		`Converts YAML to JSON.
+Defaults to getting input from STDIN and giving output to STDOUT. You can
+specify "-" for either INPUT_FILE or OUTPUT_FILE to mean STDIN and STDOUT,
+respectively.
+Accepts no options other than --help.`},
 }
 
 // ShowVersion shows the version of this tool.
