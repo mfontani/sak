@@ -81,6 +81,10 @@ Options:
 Uses the ""fixed"" rune descriptions for control characters, and supports font
 awesome runes as well.  Useful to identify presence of combining characters.
 Accepts no options other than --help.`},
+	"httproxy": {HTTPProxy, "Sets up a HTTP proxy", "httproxy LISTEN_HOST LISTEN_PORT FWD_HOST FWD_PORT",
+		`Sets up a HTTP proxy on LISTEN_PORT, forwarding incoming HTTP requests to
+http://FWD_HOST:FWD_PORT. Logs and dumps incoming requests' details to STDOUT.
+Accepts no options other than --help.`},
 	"stripansi": {StripANSI, "strips ansi from input", "stripansi [INPUT_FILE|-] [OUTPUT_FILE|-]",
 		`Strips ANSI strings (i.e. \x1b[...m) from INPUT_FILE, and writes to OUTPUT_FILE.
 Defaults to getting input from STDIN and giving output to STDOUT.
