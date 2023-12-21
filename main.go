@@ -81,6 +81,11 @@ Options:
 Uses the ""fixed"" rune descriptions for control characters, and supports font
 awesome runes as well.  Useful to identify presence of combining characters.
 Accepts no options other than --help.`},
+	"httpdumper": {HTTPDumper, "Sets up a HTTP dumper", "httpdumper LISTEN_HOST LISTEN_PORT",
+		`Sets up a HTTP server on LISTEN_PORT, returning a text/plain response on every
+request, containing the request's details. Logs incoming requests' details to
+STDOUT.
+Accepts no options other than --help.`},
 	"httproxy": {HTTPProxy, "Sets up a HTTP proxy", "httproxy LISTEN_HOST LISTEN_PORT FWD_HOST FWD_PORT",
 		`Sets up a HTTP proxy on LISTEN_PORT, forwarding incoming HTTP requests to
 http://FWD_HOST:FWD_PORT. Logs and dumps incoming requests' details to STDOUT.
