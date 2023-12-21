@@ -77,6 +77,26 @@ and giving output to `STDOUT`. You can specify `-` for either `INPUT_FILE` or
 
 Accepts no options other than `--help`.
 
+### `httpdumper` - Sets up a HTTP dumper
+
+Synopsis: `httpdumper LISTEN_HOST LISTEN_PORT`
+
+Sets up a `HTTP` server on `LISTEN_PORT`, returning a text/plain response on every
+request, containing the request's details. Logs incoming requests' details to
+
+`STDOUT`.
+
+Accepts no options other than `--help`.
+
+### `httproxy` - Sets up a HTTP proxy
+
+Synopsis: `httproxy LISTEN_HOST LISTEN_PORT FWD_HOST FWD_PORT`
+
+Sets up a `HTTP` proxy on `LISTEN_PORT`, forwarding incoming `HTTP` requests to
+http://`FWD_HOST`:`FWD_PORT`. Logs and dumps incoming requests' details to `STDOUT`.
+
+Accepts no options other than `--help`.
+
 ### `rune` - Shows runes matching the arguments
 
 Synopsis: `rune [OPTIONS] ARGUMENT [ARGUMENT+]`
